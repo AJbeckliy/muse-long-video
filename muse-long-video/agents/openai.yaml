@@ -1,0 +1,4 @@
+interface:
+  display_name: "Muse 长视频导演与剪辑"
+  short_description: "选择星幕画布或自带API，分段生成长视频、中间帧续拍、按帧剪辑与声音处理"
+  default_prompt: "使用 $muse-long-video 承接我的剧情和人物素材，规划分段生成、中间帧续拍与剪辑，按当前授权推进。"

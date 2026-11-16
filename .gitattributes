@@ -1,0 +1,2 @@
+# Preserve release-manifest hashes across Windows and GitHub ZIP downloads.
+* -text

@@ -1,0 +1,14 @@
+{
+  "backend": "api",
+  "protocol": "video_async_json_v1",
+  "base_url": null,
+  "model": null,
+  "key_env": "MUSE_VIDEO_API_KEY",
+  "paths": {"check": null, "submit": null, "status": null, "upload": null},
+  "selectors": {"models": null, "model_id": null, "job_id": null, "status": null, "result_url": null, "upload_url": null},
+  "fields": {"model": null, "prompt": null, "image": null},
+  "states": {"pending": [], "succeeded": [], "failed": []},
+  "parameters": {},
+  "capabilities": {"image_role": null, "image_formats": [], "max_image_bytes": null, "image_dimensions": {}, "audio_output": null},
+  "evidence": {"source": null, "model": null, "protocol_verified": false, "readonly_check_verified": false, "reference_images_verified": false}
+}

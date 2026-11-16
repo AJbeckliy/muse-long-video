@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+*.local.json
+backend.json
+api-config.json
+check-receipt.json
+attempt.json
+attempts/
+outputs/
+*.mp4
+*.wav
+*.mp3
+*.before-synmew-*
+*.synmew-new-*

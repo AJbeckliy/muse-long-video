@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "project": null,
+  "scope": null,
+  "story_approval": null,
+  "target_seconds": null,
+  "assets": [],
+  "generation": {
+    "backend": null,
+    "api_config_path": null,
+    "compatibility_receipt": null,
+    "provider": null,
+    "model": null,
+    "verified_single_request_seconds": null,
+    "planned_count": null,
+    "authorized_retries": null,
+    "submitted_count": 0,
+    "budget": null
+  },
+  "segments": [],
+  "junctions": [],
+  "edit_plan_path": null,
+  "voice_method": null,
+  "music_source": null,
+  "qa": {"decode": null, "junction_visual": null, "full_listening": null, "user_acceptance": null},
+  "outputs": [],
+  "unresolved": []
+}

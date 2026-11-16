@@ -1,0 +1,66 @@
+# 调用示例与验收
+
+## 调用方式
+
+新增双通道：首次实际生成前只问星幕/API；明确选API且电脑无星幕时只配置API，不能触发星幕exe选择、MCP配对或画布检查。已有项目通道继续沿用。仅安装可选稍后配置，明确设置`generation_ready=false`。
+
+“用 $muse-long-video 把这个剧情做成20秒，人物用我的图，每段Muse生成10秒，先给脚本。” → 只交三张规划表和提示词，不提交任务。
+
+“用 $muse-long-video 继续这两段，从第一段第6秒附近接，做完整成片。” → 先抽帧、看实际接点和对白；6秒为候选而非强制剪点，已有素材可先完成离线工作。
+
+“用 $muse-long-video 修改结尾，前面别动。” → 查原剪辑与接点，只修受影响段，声音/身份沿用已批准状态。
+
+## 行为检查案例
+
+1. 两段各10秒，第一段第132帧接续，第二段首帧重复：正确计算15.5秒；不能称20秒或直接保留前段十秒。
+2. 尾帧脸清楚但房间不可辨，5.5秒中景人景都清楚：优先审查中景，不能默认尾帧。
+3. 选中接点前的对白尚未说完：换接点/重分剧情，不截字；不能修改dialogue_windows隐瞒截断。
+4. 三十秒用户只批准三次生成，但接点取用总长不足：说明不足和具体额外任务，不能偷偷第四次，也不能慢放凑时长。
+5. 只有脚本整理请求：只写文件，不上传资产、扣费或发布。
+6. 任务wait超时但仍running：继续查同一ID，不重提；若工具失联则记录未知。
+7. 用户选Muse，工具默认H3：不能静默使用H3；模型切换需明确。
+8. 用户认可台词音色，要求加BGM：保留台词时间和画面，音乐压低；不得擅自换声。
+9. 多图参考语义未知且第一图只有背影：不能承诺第二图锁脸；先准备有效单帧状态。
+10. 视频修补已损伤嘴唇：标记失败，不能只因口红印消失就说修好。
+11. 用户给了“兼容OpenAI”的地址和聊天模型列表：不能据此认定支持视频/参考帧，先核对真实视频协议与所选模型。
+12. API接口不匹配：说明原因并停止，不偷偷改用星幕或固定的ZZAI，也不现场补新适配器。
+13. API提交超时且没有任务ID：attempt标记unknown，不自动再次提交；已有ID或成功结果则恢复查询/下载。
+14. 用户更新Skill：备份放skill-backups，不能放到skills扫描根目录下；不自动删除已有旧备份。
+
+## 本地验证命令
+
+所有测试离线，不调用生成，不上传、不删除旧文件。指定全新绝对H盘目录保留测试产物。
+
+```powershell
+python <skill-creator>/scripts/quick_validate.py <skill>
+python <skill>/scripts/test_edit_video.py H:/AI-Work/Temp/MuseLongVideoValidation/edit
+python <skill>/scripts/test_inspect_continuity.py H:/AI-Work/Projects/demo/a.mp4 H:/AI-Work/Temp/MuseLongVideoValidation/frames
+```
+
+编辑测试覆盖对白截断、重复帧、越界、覆盖保护、混合fps、133+239帧的真实渲染；抽帧测试覆盖像素一致、越界无部分文件、已有输出不覆盖及无效索引。结构检查与这些离线测试不证明模型生成成功；行为案例是审查清单，不冒充自动执行通过。
+
+复制项目记录模板后，segments每项至少记段ID、输入文件/角色、实际提示词文件、project/card/task ID、源文件及真实规格、费用和检查结论。junctions每项至少记前后段ID、帧索引、参考图、选择原因、起止状态及是否跳过后段首帧。填实际证据，不用null代替最终完成记录。
+
+## 2026-11-16本机验证记录
+
+- 官方quick_validate：通过。
+- test_edit_video：14项通过，其中2项使用FFmpeg/PyAV真实渲染，非模拟生成。
+- test_inspect_continuity：5项通过，使用既有Muse项目part2.mp4验证抽帧像素和保护行为。
+- 代表性行为人工审查：前段选132帧不能保留至240帧；不足目标时长不能私自增加生成；wait超时不能视为重跑授权；只整理Skill不触发模型。
+- 未进行新的付费生成或完整主观音画验收。新Skill对后续模型出片效果仍需实际使用验证。
+- 测试媒体保留在`H:/AI-Work/Temp/MuseLongVideoValidation-20261116/`。
+
+## 星幕分享接入版验证
+
+双通道版新增验证（2026-11-16）：API新增17项离线模拟测试通过，包含只读检查、精确模型匹配、HTTP200业务错误、配置/Key变化失效、参考图规则、无上传预检、重复提交拒绝、unknown保留、终态恢复、不带Key下载及下载失败仅重收集。API共享安装确认不修改星幕MCP。原8项安装配置、14项剪辑、5项抽帧测试重新通过，共44项。颜色检查改用Pillow，阻断NumPy导入后14项剪辑测试也全部通过。实际复制复现确认备份位于skill-backups且技能目录只有一个入口。当前REST协议未新增线上付费生成验证，不代表任意API兼容；全新电脑交互安装仍待验证。
+
+新增测试命令：`python <skill>/scripts/test_video_api.py H:/AI-Work/Temp/MuseDualBackendValidation/api-new`。
+
+- 新增`test_setup_synmew.py`：8项临时配置测试通过，覆盖预览不写入、备份与原文保留、重复安装、冲突拒绝、无效端口/路径、Unicode及禁用配置保护。
+- `setup_windows.ps1`：PowerShell语法检查通过；未执行全新电脑的交互安装和联网依赖安装，不声称已验证开箱即用。
+- `setup_synmew.py --check --probe`：本机真实通过握手、工具枚举（92个工具）和工作区只读调用；服务端报告1.9.6。此版本/数量是2026-11-16实测值，不是最低版本要求。
+- 未修改本机现有MCP配置，未触发付费生成。本次新增内容不改变原抽帧/剪辑算法，原19项测试仍为其验证记录。
+
+```powershell
+python <skill>/scripts/test_setup_synmew.py H:/AI-Work/Temp/MuseLongVideoValidation/setup
+```
