@@ -1,5 +1,5 @@
 {
-  "version": "2026.11.16-dual-backend-v2",
+  "version": "2026.11.17-workflow-docs-v3",
   "files": {
     "muse-long-video/agents/openai.yaml": "986f0f514f7e9db93dc3ec8b7fe26dd260f07bcae225cd7e5b7a08c3674e3565",
     "muse-long-video/assets/project-record.json": "277257bef47162b62f110994c883d3ffb9f654a6a118b6477832ccd70b97c007",
@@ -10,7 +10,7 @@
     "muse-long-video/references/editing-and-audio.md": "d30ba15a10dcbf986fbe78c99244a82394f29be49ee1b1ad65595fc2e3f1a190",
     "muse-long-video/references/generation-and-continuity.md": "c8fa6112743d6fd97771dabfe6bea8862982041cc9ca7a03fe680dc4244eeeea",
     "muse-long-video/references/lessons-and-cases.md": "306079779f87822369c5d7ee778f3db84785eaa6edffe7bac3e4f1fd7e1b7481",
-    "muse-long-video/references/planning-and-prompts.md": "736625c7b2e1ae517532d2422f82f366656e5200555bc9d50f54025c9887681c",
+    "muse-long-video/references/planning-and-prompts.md": "d133997d115487696233795314ec8a5f32806607c984c28bba220a0d214612ab",
     "muse-long-video/references/synmew-install.md": "9c929163c3a0b5a587a6e09e352a67ea20b7e442e3240080b34d9609d05085db",
     "muse-long-video/references/validation.md": "15d4beb8a42b9ce22a55adf56ea9ac9f33a589dadec491887b355fd959a78f7a",
     "muse-long-video/scripts/edit_video.py": "752aa6c3eb13f53894402f99a553f56ed8477b1f7b20192855b14f03f8f5a318",
@@ -23,11 +23,12 @@
     "muse-long-video/scripts/test_setup_synmew.py": "980c1b1287340780b434429ee9fe08c0d743139bf8f36aff91069d6b215f1bbf",
     "muse-long-video/scripts/test_video_api.py": "6f78cb0816dd331842895f8a88892821e079fe449245e08ca2ba1f235c7448ff",
     "muse-long-video/scripts/video_api.py": "c94ba0a149194e7ad92bd8e6cb4308ef7511e7b679a506194081e8b1db274f0e",
-    "muse-long-video/SKILL.md": "92075407596b58257f24e03b28c7e609bfbf9b8dc4f646c36c9e319e9b58401e",
-    "README.md": "80ba66c40f45a304db7a29595b746f85446b745538cec94fabf4102091c35375",
+    "muse-long-video/SKILL.md": "bd4f66833703f6a1ad1b2bc8ed2e009a0986fde7f6a84c8a3175488b31ec1087",
+    "README.md": "10addcb4aec34091f21799af74d0a73ffc7b47a089228a3c5b695f0efd349ae6",
     "install-windows.cmd": "626584969ecc256837ca6303f1b2677331e0ae81448693d5e804ab1923ef6e87",
     ".gitignore": "27694d4c13c5bdac0f92eac820e479d03ae5c70192d497ad5474b8c0da256f93",
-    ".gitattributes": "f37ffa5eccf4152079f03831b3264b90e06f93e16c9e5839e2201968f6e3338a"
+    ".gitattributes": "f37ffa5eccf4152079f03831b3264b90e06f93e16c9e5839e2201968f6e3338a",
+    "docs/images/muse-workflow-four-steps.png": "8e94961f5d3da926d63dc0195ed07ac58033f88900136360c3ea06911a2798ea"
   },
   "validation": {
     "offline_tests_passed": 44,
