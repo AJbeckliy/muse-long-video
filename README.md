@@ -4,6 +4,21 @@
 
 **[下载 Windows 公开版（内置审片台）](https://github.com/AJbeckliy/muse-long-video/releases/download/v2026.11.22/muse-long-video-windows.zip)** · [查看作者「无敌的阿杰」的视频案例](https://x.com/AJCreatesAI)
 
+## 成片案例
+
+下方是片段动图，点击预览可播放带声音的完整视频。
+
+| 玄关惊喜 · 36 秒 | 夜归玄关 · 14 秒 |
+| :---: | :---: |
+| [![玄关惊喜动态预览](docs/demos/homecoming-pov.webp)](https://ajbeckliy.github.io/muse-long-video/demos/homecoming-pov.mp4) | [![夜归玄关动态预览](docs/demos/doorway-at-night.webp)](https://ajbeckliy.github.io/muse-long-video/demos/doorway-at-night.mp4) |
+| 男友第一人称 · 竖屏 | 近景人物互动 · 竖屏 |
+
+**监控 · 24 秒**　固定机位 · 横屏
+
+[![监控视角短片动态预览](docs/demos/security-camera.webp)](https://ajbeckliy.github.io/muse-long-video/demos/security-camera.mp4)
+
+[打开完整案例播放页](https://ajbeckliy.github.io/muse-long-video/)
+
 ## 2026-11-22 更新 · 新增本地审片台
 
 | 这次更新了什么 | 你可以怎么用 |
