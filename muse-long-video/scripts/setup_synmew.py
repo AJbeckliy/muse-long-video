@@ -12,7 +12,7 @@ def read_config(path):
     raw = path.read_bytes() if path.exists() else b''
     return raw, tomllib.loads(raw.decode('utf-8-sig'))
 
-def configure(config, exe, workspace, port, token, apply=False):
+def configure(config, exe, workspace, port, token, apply=False, pair_only=False):
     config, exe, workspace = map(Path, (config, exe, workspace))
     if not all(p.is_absolute() for p in (config, exe, workspace)):
         raise ValueError('Use absolute paths.')
@@ -54,8 +54,12 @@ def configure(config, exe, workspace, port, token, apply=False):
     for name in ('Projects','Temp','Outputs'):
         (workspace/name).mkdir(parents=True,exist_ok=True)
     local = config.parent/'muse-long-video.local.json'
-    local.write_text(json.dumps({'backend':'starcanvas','workspace_root':str(workspace),'python':sys.executable,
-                                'synmew_exe':str(exe),'mcp_server':SERVER},ensure_ascii=False,indent=2),encoding='utf8')
+    sys.path.insert(0,str(Path(__file__).resolve().parent.parent/'windows'/'studio'))
+    from settings_io import merge_settings
+    fields={'synmew_exe':str(exe),'mcp_server':SERVER}
+    if not pair_only:
+        fields.update(backend='starcanvas',workspace_root=str(workspace),python=sys.executable)
+    merge_settings(local,fields)
     state['applied'] = True
     return state
 
@@ -122,6 +126,7 @@ def main():
     p.add_argument('--config',type=Path,default=home/'config.toml')
     p.add_argument('--exe',type=Path);p.add_argument('--workspace',type=Path)
     p.add_argument('--port',type=int);p.add_argument('--apply',action='store_true')
+    p.add_argument('--pair-only',action='store_true',help='Register the connection; keep the current provider preference.')
     p.add_argument('--probe',action='store_true');p.add_argument('--check',action='store_true')
     a=p.parse_args()
     try:
@@ -133,7 +138,7 @@ def main():
             _,d=read_config(a.config)
             token=d.get('mcp_servers',{}).get(SERVER,{}).get('env',{}).get('SYNMEW_MCP_TOKEN')
             if not token: token=getpass.getpass('粘贴你自己星幕的 MCP 配对 Token（隐藏输入，按回车提交）：')
-            print(json.dumps(configure(a.config,a.exe,a.workspace,a.port,token,a.apply),ensure_ascii=False))
+            print(json.dumps(configure(a.config,a.exe,a.workspace,a.port,token,a.apply,a.pair_only),ensure_ascii=False))
         if a.probe: print(json.dumps(probe(a.config),ensure_ascii=False))
         if not (a.check or a.probe or a.exe):p.print_help()
         return 0

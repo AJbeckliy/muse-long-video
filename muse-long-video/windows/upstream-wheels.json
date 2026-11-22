@@ -1,0 +1,22 @@
+[
+  {
+    "name": "av-17.1.0-cp311-abi3-win_amd64.whl",
+    "url": "https://files.pythonhosted.org/packages/6b/f2/53a7cd34adb6a971d7e6d99663e74db286966c9db8afdca17472fdf0f98e/av-17.1.0-cp311-abi3-win_amd64.whl",
+    "sha256": "5df5c1172ef1cf65a1529d612f7da7798ce2cf82c1ff7212466b538a6cc7214c"
+  },
+  {
+    "name": "imageio_ffmpeg-0.5.1-py3-none-win_amd64.whl",
+    "url": "https://files.pythonhosted.org/packages/a9/1c/1b9c72bf839def47626436ea5ebaf643404f7850482c5fafd71a3deeaa94/imageio_ffmpeg-0.5.1-py3-none-win_amd64.whl",
+    "sha256": "1521e79e253bedbdd36a547e0cbd94a025ba0b558e17f08fea687d805a0e4698"
+  },
+  {
+    "name": "pillow-11.2.1-cp311-cp311-win_amd64.whl",
+    "url": "https://files.pythonhosted.org/packages/e2/72/25a8f40170dc262e86e90f37cb72cb3de5e307f75bf4b02535a61afcd519/pillow-11.2.1-cp311-cp311-win_amd64.whl",
+    "sha256": "0f5c7eda47bf8e3c8a283762cab94e496ba977a420868cb819159980b6709193"
+  },
+  {
+    "name": "pip-25.3-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/44/3c/d717024885424591d5376220b5e836c2d5293ce2011523c9de23ff7bf068/pip-25.3-py3-none-any.whl",
+    "sha256": "9655943313a94722b7774661c21049070f6bbb0a1516bf02f7c8d5d9201514cd"
+  }
+]

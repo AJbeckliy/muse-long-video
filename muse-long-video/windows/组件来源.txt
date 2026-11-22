@@ -1,0 +1,3 @@
+Python 3.11.9 Windows embedded: https://www.python.org/ftp/python/3.11.9/
+PyAV 17.1.0, Pillow 11.2.1, imageio-ffmpeg 0.5.1: Windows wheels from PyPI. Downloaded on first installation from the pinned PyPI URLs in upstream-wheels.json. Package licenses remain with their installed wheels. https://github.com/imageio/imageio-ffmpeg/tree/v0.5.1
+pip 25.3 (MIT, downloaded from official PyPI wheel). Optional pure-Python wheels: openai-whisper 20250625 (MIT), sox 1.5.0 (LGPL), built from PyPI source releases. DBS-TIGER: https://github.com/JusperLee/Dynamic-Band-Splitting (see optional/dbs-code). Samples are generated FFmpeg test patterns and tones.

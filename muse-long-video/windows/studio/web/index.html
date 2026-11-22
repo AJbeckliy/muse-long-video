@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Muse 长视频审片台</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+  <script defer src="./sound.js"></script>
+  <script defer src="./onboarding.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">M</span><span>Muse<span class="brand-sub">长视频审片台</span></span></a>
+    <div class="project-picker">
+      <label class="sr-only" for="projects">查看项目</label><select id="projects" aria-label="查看项目"></select>
+      <button class="secondary" id="new-project" type="button" hidden>＋ 新建项目</button>
+    </div>
+    <button class="status-pill" type="button" id="connection">本地审片</button>
+    <button class="secondary" type="button" id="components" hidden>组件设置</button>
+  </header>
+  <main id="workspace" class="workspace" hidden>
+    <aside class="sidebar" aria-labelledby="segment-heading">
+      <div class="sidebar-heading"><h2 id="segment-heading">分段</h2><span id="progress"></span></div>
+      <nav id="segments" aria-label="视频分段"></nav>
+      <div class="archive">
+        <h2>成片</h2>
+        <div id="outputs"></div>
+      </div>
+    </aside>
+    <section class="editor" aria-labelledby="segment-title">
+      <div class="editor-head">
+        <div><p id="project-title" class="project-title"></p><h1 id="segment-title"></h1></div>
+        <button class="secondary" type="button" id="seam" hidden>连播接缝</button>
+      </div>
+      <div id="preview" class="preview">
+        <video id="player" controls preload="metadata" playsinline aria-label="当前版本原片"></video>
+        <img id="frame-image" alt="逐帧预览" hidden>
+        <button id="back-to-video" type="button" class="overlay-button" hidden>返回视频</button>
+        <div id="empty" class="empty" hidden><strong id="empty-title"></strong><p id="empty-note"></p></div>
+      </div>
+      <div id="timeline" class="timeline">
+        <label><input type="checkbox" id="clean-sound" checked> 预览与导出默认去配乐</label>
+        <span class="caption" id="sound-status" role="status"></span>
+        <div class="timeline-top"><strong id="timecode"></strong><span id="frame-count"></span></div>
+        <label for="scrubber" class="sr-only">选中帧位置</label><input id="scrubber" type="range" min="0" max="0" value="0">
+        <div class="timeline-controls">
+          <div class="stepper"><button id="prev-frame" type="button" aria-label="上一帧">‹</button><input type="number" id="frame-number" aria-label="帧索引，从零开始" min="0"><button id="next-frame" type="button" aria-label="下一帧">›</button></div>
+          <button id="grab-frame" type="button" class="secondary">定位到播放处</button>
+          <span id="source-duration" class="push"></span>
+        </div>
+        <div id="thumbnails" class="thumbnails" aria-label="候选接续帧"></div>
+      </div>
+    </section>
+    <section class="inspector" aria-label="当前段审核">
+      <div id="notice" class="notice" role="status" hidden></div>
+      <button id="reload-review" type="button" class="secondary" hidden>其他窗口已修改本段 · 载入最新剪点</button>
+      <label class="file-pick">导入本段本机视频<input type="file" id="import-video" accept="video/mp4,.mp4" class="sr-only"></label>
+      <div id="version-panel" class="panel">
+        <label class="panel-title" for="versions">片段版本</label><select id="versions"></select>
+      </div>
+      <div id="trim-panel" class="panel">
+        <div class="trim-heading"><h2>保留范围</h2><button id="reset-trim" type="button" class="linklike" hidden>恢复整段</button></div>
+        <div class="trim-line"><div><span>入点</span><strong id="inpoint"></strong></div><button id="set-in" type="button" class="secondary">设为入点</button></div>
+        <div class="trim-line"><div><span>结束帧</span><strong id="outpoint"></strong></div><button id="set-out" type="button" class="secondary">设为结束帧</button></div>
+        <p id="retained" class="caption"></p>
+        <p id="trim-warning" class="caption" role="status" hidden>入点和结束帧相同，合成时这段只会闪一下。</p>
+      </div>
+      <fieldset id="join-panel" class="panel choices" hidden>
+        <legend>怎么接下一段</legend>
+        <label><input type="radio" name="join" value="continue" checked><span><strong>从结束帧续拍</strong><small>把结束帧作为下一段参考图</small></span></label>
+        <label><input type="radio" name="join" value="cut"><span><strong>剪到这里 · 切新镜头</strong><small>下一段独立生成，在剪点硬切</small></span></label>
+        <div id="next-reference" class="join-image"><img id="next-reference-img" alt="用于下一段的结束帧"><span id="next-reference-label"></span></div>
+      </fieldset>
+      <details id="prompt-panel" class="panel" hidden>
+        <summary>本段生成设置</summary>
+        <label for="prompt" class="caption">提示词</label><textarea id="prompt" rows="5" maxlength="16000"></textarea>
+        <div class="duration"><label for="duration" class="caption">目标时长（秒）</label><input id="duration" type="number" min="2" max="10" value="10"></div>
+        <button id="save-prompt" type="button" class="secondary">保存设置</button>
+        <div id="opening-panel" class="opening">
+          <p class="caption" id="opening-help"></p>
+          <img id="opening-preview" alt="本段单独指定的参考图" hidden>
+          <label class="file-pick" for="opening-file">选参考图…</label><input id="opening-file" type="file" accept="image/png,image/jpeg,image/webp" class="sr-only">
+          <button id="clear-opening" type="button" class="linklike" hidden>移除</button>
+        </div>
+      </details>
+      <details class="panel" id="dub-settings">
+        <summary>项目对白重配</summary>
+        <p id="dub-note" class="caption" role="status"></p>
+        <label>参考音色 <input id="dub-reference" type="file" accept=".wav,.mp3,audio/wav,audio/mpeg"></label>
+        <button id="dub-on" type="button">按参考音色生成对齐对白</button>
+        <button id="dub-off" type="button" hidden>恢复原对白</button>
+      </details>
+      <div id="actions" class="actions">
+        <button id="approve" class="primary" type="button" hidden></button>
+        <button id="generate" class="secondary" type="button" hidden></button>
+        <button id="check-job" class="secondary" type="button" hidden>查询原任务</button>
+        <button id="restore-receipt" class="secondary" type="button" hidden>填写供应商任务号</button>
+        <button id="confirm-not-submitted" class="secondary" type="button" hidden>我已核实供应商未受理</button>
+        <button id="rebind-api" class="secondary" type="button" hidden>本项目采用当前 API 配置</button>
+        <p id="action-hint" class="caption" hidden></p>
+      </div>
+    </section>
+  </main>
+  <div id="welcome" class="welcome" hidden><h1>开始审片</h1><p>新建审片项目后，可以逐段生成和审核。</p></div>
+  <div id="toast" role="status" class="toast" hidden></div>
+  <dialog id="media-dialog">
+    <div class="dialog-head"><h2 id="media-title"></h2><button type="button" class="close" data-close="media-dialog" aria-label="关闭">×</button></div>
+    <video id="dialog-player" controls playsinline preload="metadata"></video>
+    <p id="media-caption" class="caption" hidden></p>
+    <a id="media-download" class="secondary download" download hidden>保存视频</a>
+
+  </dialog>
+  <dialog id="components-dialog">
+    <div class="dialog-head"><h2>工作台设置</h2><button type="button" class="close" data-close="components-dialog" aria-label="关闭">×</button></div>
+    <form id="onboard" autocomplete="off">
+      <label for="backend-choice">视频生成方式</label>
+      <select id="backend-choice"><option value="starcanvas">我的星幕账号</option><option value="api">我自己的视频 API</option></select>
+      <section id="api-fields" hidden>
+        <label>接口协议<select id="api-protocol"><option value="ark">方舟兼容视频任务</option><option value="json">导入服务商异步 JSON 配置</option></select></label>
+        <div id="ark-fields"><label>基础地址<input type="url" id="api-base" placeholder="https://服务商地址/api/v3"></label><label>模型或接入点 ID<input id="api-model" type="text"></label></div>
+        <label id="profile-field" hidden>接口配置文件<input type="file" id="api-profile" accept=".json"></label>
+        <label>API Key<input id="api-secret" type="password" autocomplete="off"></label>
+        <p class="caption">保存时只读验证。密钥由当前 Windows 用户加密保存。</p>
+      </section>
+      <label for="audio-choice">现在需要声音处理吗？</label>
+      <select id="audio-choice"><option value="">暂时不用</option><option value="clean">安装去配乐</option><option value="dub">安装对白重配和去配乐</option></select>
+      <p class="caption" id="onboard-status" role="status"></p>
+      <button type="submit" class="primary">保存并开始</button>
+      <button type="button" data-close="components-dialog">稍后设置，先审片</button>
+    </form>
+  </dialog>
+  <dialog id="project-dialog">
+    <div class="dialog-head"><h2>新建审片项目</h2><button type="button" class="close" data-close="project-dialog" aria-label="关闭">×</button></div>
+    <form id="create-project">
+      <label for="new-title">项目名称</label><input id="new-title" type="text" maxlength="80" required>
+      <label for="new-ratio">画幅</label><select id="new-ratio"><option value="9:16">竖屏 9:16</option><option value="16:9">横屏 16:9</option></select>
+      <label for="new-count">分段数量</label><input id="new-count" type="number" min="1" max="12" value="2" required>
+      <label for="new-prompts">分段提示词</label><textarea id="new-prompts" rows="5" placeholder="可稍后填写。多段提示词以单独一行 --- 分开。"></textarea>
+      <button class="primary" type="submit">创建项目</button>
+    </form>
+  </dialog>
+  <dialog id="confirm-dialog">
+    <div class="dialog-head"><h2 id="confirm-title"></h2><button type="button" class="close" data-close="confirm-dialog" aria-label="关闭">×</button></div>
+    <p id="confirm-text"></p>
+    <p id="confirm-reference" class="caption"></p>
+    <div class="confirm-actions"><button type="button" class="secondary" data-close="confirm-dialog">取消</button><button id="confirm-yes" type="button" class="primary">确认提交星幕</button></div>
+  </dialog>
+</body>
+</html>

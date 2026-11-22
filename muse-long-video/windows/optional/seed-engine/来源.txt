@@ -1,0 +1,1 @@
+Seed-VC 推理源码与固定的模型来源见 model-lock.json。引擎许可见 LICENSE，包含的第三方模块许可见 licenses。模型按需安装。

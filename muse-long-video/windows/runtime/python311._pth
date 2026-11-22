@@ -1,0 +1,6 @@
+python311.zip
+.
+packages
+../studio
+../../scripts
+import site

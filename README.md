@@ -8,6 +8,8 @@
 
 **先选择生成方式，再检查环境。** 同一套规划、参考帧、剪辑和验收流程，可使用星幕，也可使用自带的兼容视频API。接口兼容不等于一定保脸或无缝接续，成片仍需检查。
 
+**[下载 Windows 公开版（内置审片台）](https://github.com/AJbeckliy/muse-long-video/releases/download/v2026.11.22/muse-long-video-windows.zip)**。安装 Skill 后即可逐段看片、挑选接续帧、只重跑当前段，并按需配置去配乐和对白重配。
+
 ## 四步完成长视频
 
 ![Muse长视频使用流程：确定想法、拆分脚本、生成与续拍、剪辑与交付](docs/images/muse-workflow-four-steps.png)
@@ -59,34 +61,11 @@ Agent 按脚本和实际素材裁剪片段、拼接接点、保留完整对白�
 
 ## 安装
 
-仓库地址：https://github.com/AJbeckliy/muse-long-video 。可点击 **Code → Download ZIP** 下载并解压。
+下载[公开版 ZIP](https://github.com/AJbeckliy/muse-long-video/releases/download/v2026.11.22/muse-long-video-windows.zip)，交给 Codex 并说「安装这个 Skill」，或完整解压后双击「安装Skill.cmd」。从 GitHub 源码 ZIP 安装时，也可双击仓库根目录的 install-windows.cmd。
 
-把解压后的整个包交给能操作本机文件和脚本的AI助手，告诉它：
+首次安装自动从 PyPI 下载并校验约 55 MB 的基础组件，之后可离线审片。首次打开时可选星幕或自带视频 API，也可以稍后设置。声音组件默认跳过，需要去配乐或对白重配时再安装。
 
-> 从 https://github.com/AJbeckliy/muse-long-video 安装Muse长视频Skill，Skill入口在仓库的 muse-long-video 子目录。先问我用星幕还是自己的API，按照选择配置。API模式不要安装或启动星幕。先检查环境，不生成视频。
-
-Windows也可双击`install-windows.cmd`。需可用的Python 3.10/3.11 x64（[Python下载](https://www.python.org/downloads/windows/)），安装助手会创建独立剪辑环境。
-
-### 星幕画布
-
-1. [下载星幕](https://pan.quark.cn/s/cf3c1e40528d#/list/share)，安装并登录自己的账号。
-2. 安装助手选“1”，选择程序和媒体目录，用自己星幕提供的配对信息；已有连接复用。
-3. 真实连接检查通过后，核对Muse权限和余额，再制作。
-
-网盘由发布者提供，未核验其中安装包版本。配对Token只存本机，生成消耗自己的额度。
-
-### 自带API
-
-1. 安装助手选“2”，无需星幕，不修改星幕MCP。
-2. 提供API地址、文档、准确模型名称；Key通过安全输入或本机`MUSE_VIDEO_API_KEY`环境变量配置，不发到聊天。
-3. 助手核对鉴权、上传、参数、轮询、参考帧和音频能力，做只读检查；兼容后才按制作授权生成。
-4. 
-没有现成接口的，可以从这个https://api.seedance.nz/?s=0M1u
-开始，方便快速用起来。直接将文档页面的链接发给你的agent配置即可。
-
-本包支持限定的`video_async_json_v1`协议，或用户已有的适用专用连接器。**不是所有“兼容OpenAI”的API都支持视频，也不是所有视频API都支持参考帧接续。** 不匹配则说明原因并停止，不自动换服务或模型。
-
-选“3”只安装共享文件，稍后选择。已有通道默认沿用，需要切换时明确告诉助手；高级用户可传`setup_windows.ps1 -Backend api`或`-Backend starcanvas`覆盖保存偏好。
+星幕使用自己的账号配对。自带 API 支持方舟兼容的视频任务接口，以及导入自定义异步 JSON 配置。使用作者此前列出的[服务入口](https://api.seedance.nz/?s=0M1u)或其他供应商时，可交给助手按该服务文档核对协议和参考帧能力。
 
 ## 使用
 
@@ -112,6 +91,6 @@ Windows也可双击`install-windows.cmd`。需可用的Python 3.10/3.11 x64（[P
 - [星幕接入](muse-long-video/references/synmew-install.md)
 - [验证范围](muse-long-video/references/validation.md)
 
-包内不含作者密钥、配对信息、人物素材、项目媒体、Python或星幕安装器。共享脚本依赖PyAV、Pillow和FFmpeg辅助包；配置解析用tomli，助手会联网安装。
+公开版自带 Windows x64 Python 和两段合成测试素材。用户项目、账号和模型保存在使用者自己的电脑上。
 
 已做本机离线测试及原星幕只读连接实测。新增REST协议未跑线上付费视频，全新电脑安装尚未完整实测。勿宣传任意API通用或安装后无需配置。

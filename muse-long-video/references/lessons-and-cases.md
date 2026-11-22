@@ -16,10 +16,3 @@
 
 历史有效接续：24fps第132帧，人脸、睡袍、手、电视柜与窗帘可见。`[0,133)+[1,240)=372`帧，15.5秒。用户对人景接续反馈“这段就好很多”，但这不覆盖后续拥抱质量。
 
-可追溯的本地证据（缺失不影响新项目运行）：
-- `H:/AI-Work/Projects/POV正脸接续测试-20261114/scene-review.json`
-- `H:/AI-Work/Outputs/POV正脸接续测试-20261114/跪姿找钥匙-中景接续-15.5秒-v2.mp4`
-- `H:/AI-Work/Projects/POV镜前口红印-20261114/edit-plan.json`
-- `H:/AI-Work/Projects/POV镜前口红印-20261114/lip-timing-review.json`
-
-本Skill的抽帧、剪辑与测试脚本来自本机`boyfriend-pov-director/scripts`在整理日的实现快照，复制以便独立使用；没有导入兄弟Skill或固定历史人物路径。未来改动算法时运行各自回归测试；不要假定两套副本会自动同步。

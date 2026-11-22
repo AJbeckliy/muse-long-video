@@ -11,17 +11,17 @@
   "fps": 24,
   "width": 720,
   "height": 1280,
-  "output": "H:/AI-Work/Outputs/demo/long-v1.mp4",
+  "output": "<媒体目录>/Outputs/demo/long-v1.mp4",
   "clips": [
-    {"id":"a","path":"H:/AI-Work/Projects/demo/a.mp4","source_fps":24,"source_frames":240,"in_frame":0,"out_frame":133,"dialogue_windows":[[1.0,3.0]]},
-    {"id":"b","path":"H:/AI-Work/Projects/demo/b.mp4","source_fps":24,"source_frames":240,"in_frame":1,"out_frame":240,"dialogue_windows":[[2.0,5.0]]}
+    {"id":"a","path":"<媒体目录>/Projects/demo/a.mp4","source_fps":24,"source_frames":240,"in_frame":0,"out_frame":133,"dialogue_windows":[[1.0,3.0]]},
+    {"id":"b","path":"<媒体目录>/Projects/demo/b.mp4","source_fps":24,"source_frames":240,"in_frame":1,"out_frame":240,"dialogue_windows":[[2.0,5.0]]}
   ]
 }
 ```
 
 ```powershell
-python <skill>/scripts/edit_video.py H:/AI-Work/Projects/demo/edit-plan.json
-python <skill>/scripts/edit_video.py H:/AI-Work/Projects/demo/edit-plan.json --render
+python <skill>/scripts/edit_video.py <媒体目录>/Projects/demo/edit-plan.json
+python <skill>/scripts/edit_video.py <媒体目录>/Projects/demo/edit-plan.json --render
 ```
 
 默认只校验：帧范围、重复源区间、对白越界、总时长、输出保护。渲染额外核对真实fps、总帧数、画幅、音轨长度并完整解码输出。检查模式不证明素材存在或物理动作正确。

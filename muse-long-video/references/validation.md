@@ -33,8 +33,8 @@
 
 ```powershell
 python <skill-creator>/scripts/quick_validate.py <skill>
-python <skill>/scripts/test_edit_video.py H:/AI-Work/Temp/MuseLongVideoValidation/edit
-python <skill>/scripts/test_inspect_continuity.py H:/AI-Work/Projects/demo/a.mp4 H:/AI-Work/Temp/MuseLongVideoValidation/frames
+python <skill>/scripts/test_edit_video.py <媒体目录>/Temp/MuseLongVideoValidation/edit
+python <skill>/scripts/test_inspect_continuity.py <媒体目录>/Projects/demo/a.mp4 <媒体目录>/Temp/MuseLongVideoValidation/frames
 ```
 
 编辑测试覆盖对白截断、重复帧、越界、覆盖保护、混合fps、133+239帧的真实渲染；抽帧测试覆盖像素一致、越界无部分文件、已有输出不覆盖及无效索引。结构检查与这些离线测试不证明模型生成成功；行为案例是审查清单，不冒充自动执行通过。
@@ -48,13 +48,13 @@ python <skill>/scripts/test_inspect_continuity.py H:/AI-Work/Projects/demo/a.mp4
 - test_inspect_continuity：5项通过，使用既有Muse项目part2.mp4验证抽帧像素和保护行为。
 - 代表性行为人工审查：前段选132帧不能保留至240帧；不足目标时长不能私自增加生成；wait超时不能视为重跑授权；只整理Skill不触发模型。
 - 未进行新的付费生成或完整主观音画验收。新Skill对后续模型出片效果仍需实际使用验证。
-- 测试媒体保留在`H:/AI-Work/Temp/MuseLongVideoValidation-20261116/`。
+- 测试媒体保留在`<媒体目录>/Temp/MuseLongVideoValidation-20261116/`。
 
 ## 星幕分享接入版验证
 
 双通道版新增验证（2026-11-16）：API新增17项离线模拟测试通过，包含只读检查、精确模型匹配、HTTP200业务错误、配置/Key变化失效、参考图规则、无上传预检、重复提交拒绝、unknown保留、终态恢复、不带Key下载及下载失败仅重收集。API共享安装确认不修改星幕MCP。原8项安装配置、14项剪辑、5项抽帧测试重新通过，共44项。颜色检查改用Pillow，阻断NumPy导入后14项剪辑测试也全部通过。实际复制复现确认备份位于skill-backups且技能目录只有一个入口。当前REST协议未新增线上付费生成验证，不代表任意API兼容；全新电脑交互安装仍待验证。
 
-新增测试命令：`python <skill>/scripts/test_video_api.py H:/AI-Work/Temp/MuseDualBackendValidation/api-new`。
+新增测试命令：`python <skill>/scripts/test_video_api.py <媒体目录>/Temp/MuseDualBackendValidation/api-new`。
 
 - 新增`test_setup_synmew.py`：8项临时配置测试通过，覆盖预览不写入、备份与原文保留、重复安装、冲突拒绝、无效端口/路径、Unicode及禁用配置保护。
 - `setup_windows.ps1`：PowerShell语法检查通过；未执行全新电脑的交互安装和联网依赖安装，不声称已验证开箱即用。
@@ -62,5 +62,5 @@ python <skill>/scripts/test_inspect_continuity.py H:/AI-Work/Projects/demo/a.mp4
 - 未修改本机现有MCP配置，未触发付费生成。本次新增内容不改变原抽帧/剪辑算法，原19项测试仍为其验证记录。
 
 ```powershell
-python <skill>/scripts/test_setup_synmew.py H:/AI-Work/Temp/MuseLongVideoValidation/setup
+python <skill>/scripts/test_setup_synmew.py <媒体目录>/Temp/MuseLongVideoValidation/setup
 ```

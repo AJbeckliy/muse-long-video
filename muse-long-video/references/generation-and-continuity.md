@@ -24,7 +24,7 @@
 ## 实际抽帧
 
 ```powershell
-python <skill>/scripts/inspect_continuity.py H:/AI-Work/Projects/demo/part1.mp4 --frames 120,132,144,192,239 --output-dir H:/AI-Work/Temp/demo/junction-v1
+python <skill>/scripts/inspect_continuity.py <媒体目录>/Projects/demo/part1.mp4 --frames 120,132,144,192,239 --output-dir <媒体目录>/Temp/demo/junction-v1
 ```
 
 索引从0开始，上述值只适用于已确认至少240帧的示例源。工具输出原尺寸PNG、候选拼图和JSON，selection为空，需人工/视觉审查选择，不自动批准。

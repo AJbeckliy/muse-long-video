@@ -108,13 +108,13 @@ def find_ffmpeg(explicit=None):
         if not path.is_file():
             raise PlanError("FFmpeg binary not found")
         return str(path)
-    found = shutil.which("ffmpeg")
-    if found:
-        return found
     try:
         import imageio_ffmpeg
         return imageio_ffmpeg.get_ffmpeg_exe()
-    except ImportError:
+    except (ImportError, RuntimeError):
+        found = shutil.which("ffmpeg")
+        if found:
+            return found
         raise PlanError("FFmpeg unavailable; pass --ffmpeg or use the existing editor")
 
 def render(plan, ffmpeg=None):
