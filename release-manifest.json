@@ -160,12 +160,13 @@
     "muse-long-video/windows/base_install.py": "398f451dd5d219adf024b029a7983e0ca15bf06333b9d5eb257c66651e9763d9",
     "muse-long-video/windows/upstream-wheels.json": "488e98bb4d06d14eba96779d55d1ff9de993e59ca4537928fe20ed0cc732d4d7",
     "muse-long-video/windows/runtime/packages/sitecustomize.py": "fb90a6065c47d686eae489b9c7e73818a37796cd2f0729d98714ac34e65c5edc",
-    "README.md": "8cef4ef10bd8fc972e4e0b3d2376a5e83c72453e4bcbe51c24f6172e0923a004",
+    "README.md": "c9cbefc5344e3dde219e69e7d8cc43505aba10f17b01a949ed73b109780c6cc1",
     "install-windows.cmd": "431db8348093bbe1de2cc8f327d863ab71b4a1b26f7427b86818939691dab803",
     ".gitignore": "27694d4c13c5bdac0f92eac820e479d03ae5c70192d497ad5474b8c0da256f93",
     ".gitattributes": "f37ffa5eccf4152079f03831b3264b90e06f93e16c9e5839e2201968f6e3338a",
     "docs/images/muse-workflow-four-steps.png": "8e94961f5d3da926d63dc0195ed07ac58033f88900136360c3ea06911a2798ea",
-    "docs/release-check-2026-11-22.md": "3cd77776d505afc5c46a0b50827a4bd943b263bb0dba1e9950b4bab3c26a1165"
+    "docs/release-check-2026-11-22.md": "3cd77776d505afc5c46a0b50827a4bd943b263bb0dba1e9950b4bab3c26a1165",
+    "docs/images/muse-review-studio.png": "11fc7ffbb92f35f1f41959788ce004e8c2da4d67788e8a1a0d433168bdd5072b"
   },
   "validation": "docs/release-check-2026-11-22.md"
 }
